@@ -17,4 +17,4 @@ Route::middleware('auth')->group(function (): void {
     Route::resource('user', \App\Http\Controllers\UserController::class)->middleware('isSuperAdmin');
 });
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');

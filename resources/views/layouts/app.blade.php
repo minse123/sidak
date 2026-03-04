@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,61 +16,82 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        #appSidebar.sidebar-hidden {
+            display: none !important;
+        }
+    </style>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+<body class="bg-light">
+    <div id="app" class="min-vh-100">
+        @auth
+            <div class="d-flex min-vh-100">
+                @include('layouts.partials.sidebar')
 
-                    </ul>
+                <div id="appMainContent" class="grow d-flex flex-column min-vh-100 bg-light">
+                    @include('layouts.partials.navbar')
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                    @if (View::hasSection('page-header'))
+                        @yield('page-header')
+                    @else
+                        <div class="bg-white border-bottom shadow-sm">
+                            <div class="container-fluid py-4 d-flex align-items-center justify-content-between">
+                                <div>
+                                    <small class="text-uppercase text-success fw-semibold"
+                                        style="letter-spacing: 0.35em;">{{ now()->format('d F Y') }}</small>
+                                    <h2 class="h4 fw-semibold text-dark mt-2 mb-0">Dashboard</h2>
+                                    <p class="text-muted mb-0">Pantau ringkasan data secara real-time.</p>
                                 </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                <div class="text-end text-muted small text-uppercase">
+                                    <p class="mb-1">Status Akun</p>
+                                    <p class="h5 fw-semibold text-dark mb-0">Aktif</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <main class="grow p-4">
+                        @yield('content')
+                    </main>
                 </div>
             </div>
-        </nav>
+        @endauth
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @guest
+            <main class="py-4">
+                @yield('content')
+            </main>
+        @endguest
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('appSidebar');
+            const mainContent = document.getElementById('appMainContent');
+            const toggleButtons = document.querySelectorAll('[data-sidebar-toggle]');
+
+            if (!sidebar || toggleButtons.length === 0) {
+                return;
+            }
+
+            toggleButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar-hidden');
+                    const isHidden = sidebar.classList.contains('sidebar-hidden');
+                    button.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+
+                    if (mainContent) {
+                        if (isHidden) {
+                            mainContent.classList.add('sidebar-collapsed');
+                        } else {
+                            mainContent.classList.remove('sidebar-collapsed');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>

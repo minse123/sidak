@@ -12,6 +12,6 @@ class UserController extends Controller
         $users = User::with('role')->get();
         $roles = Role::all();
 
-        return view('user.index', compact('users', 'roles'));
+        return view('dashboard.index', compact('users', 'roles'));
     }
 }
