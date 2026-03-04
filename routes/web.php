@@ -1,14 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::middleware('guest')->group(function (): void {
+    Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+});
 
-Auth::routes();
+Route::middleware('auth')->group(function (): void {
+    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('user', \App\Http\Controllers\UserController::class)->middleware('isSuperAdmin');
+});
+
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
