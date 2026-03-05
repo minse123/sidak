@@ -97,7 +97,7 @@
                             <h3 class="h5 fw-semibold text-dark mb-1">{{ $displayRole }}</h3>
                             <p class="text-muted small mb-0">Tidak ada tindakan yang perlu dilakukan.</p>
                         </div>
-                        <div class="grow d-flex align-items-center justify-content-center">
+                        <div class="flex-grow-1 d-flex align-items-center justify-content-center">
                             <p class="text-muted text-center mb-0">Modul akan diaktifkan kembali setelah data siap.</p>
                         </div>
                         <div class="mt-auto">

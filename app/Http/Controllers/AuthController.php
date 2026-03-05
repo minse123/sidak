@@ -65,9 +65,9 @@ class AuthController extends Controller
         $roleName = strtolower($user->role?->role_name ?? '');
 
         if ($roleName === 'superadmin') {
-            return route('user.index');
+            return route('users.index');
         }
 
-        return route('home');
+        return route('dashboard.index');
     }
 }

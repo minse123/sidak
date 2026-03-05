@@ -1,20 +1,21 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::redirect('/', '/login');
 
 Route::middleware('guest')->group(function (): void {
-    Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::middleware('auth')->group(function (): void {
-    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 
-    Route::resource('user', \App\Http\Controllers\UserController::class)->middleware('isSuperAdmin');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('users', UserController::class)->middleware('isSuperAdmin');
 });
-
-Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
