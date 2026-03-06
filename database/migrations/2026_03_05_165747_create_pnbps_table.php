@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('pnbps', function (Blueprint $table) {
             $table->id();
+            $table->string('no_dokumen')->unique();
+            $table->string('nama_paket');
+            $table->string('termin');
+            $table->decimal('persentase_tarif', 8, 2);
+            $table->decimal('nominal_tarif', 15, 2);
+            $table->decimal('total_potongan', 15, 2);
+            $table->enum('status', ['Pending', 'Verifikasi'])->default('Pending');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }

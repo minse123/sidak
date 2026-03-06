@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -51,5 +52,21 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the PNBPs created by the user.
+     */
+    public function pnbps(): HasMany
+    {
+        return $this->hasMany(Pnbp::class, 'created_by');
+    }
+
+    /**
+     * Determine if the user has the superadmin role.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->role?->role_name === 'superadmin';
     }
 }
