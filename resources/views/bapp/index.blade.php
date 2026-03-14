@@ -1,70 +1,5 @@
 @extends('layouts.app')
 
-@php
-    $bappWorkers = collect($bappWorkers ?? [
-        [
-            'name' => 'Budi Santoso',
-            'role' => 'Pengawas Lapangan',
-            'identifier' => 'PKR-001',
-            'document' => 'BAPP/001/III/2024',
-            'project' => 'Pemeliharaan Jalan Nasional Lintas Timur',
-            'location' => 'Kab. Demak, Jawa Tengah',
-            'duration' => '5 Januari – 20 Februari 2024',
-            'shift' => 'Shift Pagi · 07.00 – 15.00',
-            'shift_badge' => 'bg-info-subtle text-info',
-            'status' => 'Progres 80%',
-            'status_badge' => 'bg-success-subtle text-success',
-            'notes' => 'Fokus pada pelapisan aspal tahap kedua dan inspeksi sambungan expansion joint.',
-            'subtotal' => 42000000,
-        ],
-        [
-            'name' => 'Siti Rahmawati',
-            'role' => 'Quality Engineer',
-            'identifier' => 'PKR-014',
-            'document' => 'BAPP/014/III/2024',
-            'project' => 'Peningkatan PJU & Median Jalan',
-            'location' => 'Kota Bandung, Jawa Barat',
-            'duration' => '18 Februari – 2 April 2024',
-            'shift' => 'Shift Malam · 19.00 – 03.00',
-            'shift_badge' => 'bg-primary-subtle text-primary',
-            'status' => 'Dokumen Revisi',
-            'status_badge' => 'bg-warning-subtle text-warning',
-            'notes' => 'Menunggu validasi ulang terhadap hasil pengambilan sampel beton pracetak.',
-            'subtotal' => 38500000,
-        ],
-        [
-            'name' => 'Andi Wijaya',
-            'role' => 'Site Manager',
-            'identifier' => 'PKR-027',
-            'document' => 'BAPP/027/III/2024',
-            'project' => 'Pembangunan Dermaga Pelabuhan Utama',
-            'location' => 'Kab. Belitung Timur, Bangka Belitung',
-            'duration' => '7 Januari – 12 Maret 2024',
-            'shift' => 'Shift Penuh · 24 Jam Bergilir',
-            'shift_badge' => 'bg-secondary-subtle text-secondary',
-            'status' => 'Menunggu Approval',
-            'status_badge' => 'bg-info-subtle text-info',
-            'notes' => 'Dokumen hasil uji load test ponton sedang direview oleh tim pengawas Kemenhub.',
-            'subtotal' => 51200000,
-        ],
-        [
-            'name' => 'Mega Pratama',
-            'role' => 'Supervisor Mekanikal',
-            'identifier' => 'PKR-033',
-            'document' => 'BAPP/033/III/2024',
-            'project' => 'Instalasi Pompa Irigasi Terpadu',
-            'location' => 'Kab. Gowa, Sulawesi Selatan',
-            'duration' => '26 Februari – 30 Maret 2024',
-            'shift' => 'Shift Siang · 09.00 – 17.00',
-            'shift_badge' => 'bg-dark-subtle text-dark',
-            'status' => 'Selesai 100%',
-            'status_badge' => 'bg-success-subtle text-success',
-            'notes' => 'BAPP final disetujui pengawas; jadwal serah terima instalasi pekan depan.',
-            'subtotal' => 44750000,
-        ],
-    ]);
-@endphp
-
 @section('main-classes', 'p-0')
 
 @section('page-header')
@@ -73,11 +8,11 @@
             <div>
                 <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.35em;">Manajemen BAPP</small>
                 <h2 class="h2 fw-semibold text-dark mt-2 mb-1">Kelola Dokumen Berita Acara Pekerjaan</h2>
-                <p class="text-muted mb-0">Visualisasi statis untuk memudahkan tim frontend merancang antarmuka.</p>
+                <p class="text-muted mb-0">Pantau progres pengerjaan, pemeriksaan, dan status BAPP terbaru.</p>
             </div>
             <div class="text-end">
-                <p class="text-uppercase text-muted small mb-0">Total Dokumen</p>
-                <p class="h5 fw-semibold text-dark mb-0">{{ number_format($bappWorkers->count()) }} Dokumen</p>
+                <p class="text-uppercase text-muted small mb-0">Total BAPP</p>
+                <p class="h5 fw-semibold text-dark mb-0">{{ number_format($bapp->total()) }} Dokumen</p>
             </div>
         </div>
     </div>
@@ -86,14 +21,13 @@
 @section('content')
     <div class="container-fluid py-4 px-3 px-lg-4 px-xxl-5">
         <div class="card border-0 shadow-sm">
-            <div
-                class="card-header bg-white border-0 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+            <div class="card-header bg-white border-0 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
                 <div>
-                    <h3 class="h5 fw-semibold text-dark mb-1">Daftar Pekerja</h3>
-                    <p class="text-muted mb-0">Tampilan dummy untuk kebutuhan prototyping halaman BAPP.</p>
+                    <h3 class="h5 fw-semibold text-dark mb-1">Daftar Dokumen BAPP</h3>
+                    <p class="text-muted mb-0">Ringkasan proses pengerjaan dan pemeriksaan BAPP.</p>
                 </div>
                 <div class="d-flex gap-2">
-                    <a href="javascript:void(0)" class="btn btn-success rounded-3 px-4">
+                    <a href="{{ route('bapp.create') }}" class="btn btn-success rounded-3 px-4">
                         <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>
                         Tambah BAPP
                     </a>
@@ -104,43 +38,87 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col" class="px-4" style="width: 60px;">No</th>
-                                <th scope="col" style="min-width: 220px;">Nama Pekerja</th>
-                                <th scope="col" style="min-width: 320px;">Detail Pekerja</th>
-                                <th scope="col" class="text-end pe-4" style="width: 220px;">Subtotal</th>
+                                <th scope="col" class="px-4" style="width: 60px;">#</th>
+                                <th scope="col" style="min-width: 220px;">Nama Penerima</th>
+                                <th scope="col" style="min-width: 240px;">Detail Pekerjaan</th>
+                                <th scope="col" style="min-width: 220px;">Lokasi</th>
+                                <th scope="col" style="min-width: 180px;">Subtotal</th>
+                                <th scope="col" style="min-width: 240px;">Timeline</th>
+                                <th scope="col" style="min-width: 140px;">Status</th>
+                                <th scope="col" class="text-end pe-4" style="width: 160px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($bappWorkers as $worker)
+                            @forelse ($bapp as $item)
                                 <tr>
-                                    <td class="px-4 fw-semibold text-muted">{{ $loop->iteration }}</td>
+                                    <td class="px-4 fw-semibold">{{ ($bapp->currentPage() - 1) * $bapp->perPage() + $loop->iteration }}</td>
                                     <td>
-                                        <div class="fw-semibold text-dark">{{ $worker['name'] }}</div>
-                                        <small class="text-muted d-block">{{ $worker['role'] }}</small>
-                                        <div class="small text-muted mt-2">ID: {{ $worker['identifier'] }}</div>
-                                        <div class="small text-muted">No. Dokumen: {{ $worker['document'] }}</div>
+                                        <div class="fw-semibold text-dark">{{ $item->nama_penerima }}</div>
+                                        <small class="text-muted d-block">NIK: {{ $item->nik }}</small>
+                                        <small class="text-muted">Dibuat oleh: {{ optional($item->creator)->name ?? '—' }}</small>
                                     </td>
                                     <td>
-                                        <div class="fw-semibold text-dark">{{ $worker['project'] }}</div>
-                                        <div class="small text-muted">Lokasi: {{ $worker['location'] }}</div>
-                                        <div class="small text-muted">Durasi: {{ $worker['duration'] }}</div>
-                                        <div class="d-flex flex-wrap gap-2 mt-3">
-                                            <span class="badge rounded-pill {{ $worker['shift_badge'] }}">{{ $worker['shift'] }}</span>
-                                            <span class="badge rounded-pill {{ $worker['status_badge'] }}">{{ $worker['status'] }}</span>
+                                        <div class="text-dark">{{ $item->nama_pekerjaan }}</div>
+                                        <div class="small text-muted">{{ $item->detail_pekerjaan }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="text-dark">{{ $item->alamat_pekerjaan }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold text-dark">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="small text-muted">Pengerjaan:
+                                            <span class="text-dark">{{ optional($item->selesai_pengerjaan)->translatedFormat('d F Y') ?? '—' }}</span>
                                         </div>
-                                        <p class="small text-muted mb-0 mt-3">{{ $worker['notes'] }}</p>
+                                        <div class="small text-muted">Pemeriksaan:
+                                            <span class="text-dark">{{ optional($item->selesai_pemeriksaan)->translatedFormat('d F Y') ?? '—' }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if($item->status === 'Verifikasi')
+                                            <span class="badge rounded-pill bg-success-subtle text-success">Verifikasi</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-warning-subtle text-warning">{{ $item->status }}</span>
+                                        @endif
                                     </td>
                                     <td class="text-end pe-4">
-                                        <div class="fw-semibold text-dark">Rp
-                                            {{ number_format($worker['subtotal'], 0, ',', '.') }}</div>
-                                        <small class="text-muted d-block">Estimasi subtotal pekerjaan</small>
+                                        <div class="d-flex justify-content-end gap-1">
+                                            @can('verify', $item)
+                                                @if($item->status === 'Pending')
+                                                    <form action="{{ route('bapp.verify', $item) }}" method="POST" onsubmit="return confirm('Verifikasi data BAPP ini?');" class="d-inline">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-outline-success btn-sm rounded-circle" title="Verifikasi">
+                                                            <i class="bi bi-check-lg" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endcan
+
+                                            @can('update', $item)
+                                                <a href="{{ route('bapp.edit', $item) }}" class="btn btn-outline-primary btn-sm rounded-circle" title="Edit">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>
+                                                </a>
+                                            @endcan
+
+                                            @can('delete', $item)
+                                                <form action="{{ route('bapp.destroy', $item) }}" method="POST" onsubmit="return confirm('Hapus data BAPP ini?');" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-circle" title="Hapus">
+                                                        <i class="bi bi-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center py-5">
-                                        <p class="text-muted mb-1">Belum ada data pekerja untuk ditampilkan.</p>
-                                        <span class="text-muted small">Tambahkan data melalui backend ketika siap.</span>
+                                    <td colspan="8" class="text-center py-5">
+                                        <p class="text-muted mb-1">Belum ada data BAPP yang tersedia.</p>
+                                        <a href="{{ route('bapp.create') }}" class="btn btn-link">Tambahkan data BAPP pertama</a>
                                     </td>
                                 </tr>
                             @endforelse
@@ -148,6 +126,11 @@
                     </table>
                 </div>
             </div>
+            @if($bapp->hasPages())
+                <div class="card-footer bg-white border-0 py-3">
+                    {{ $bapp->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection

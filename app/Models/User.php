@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(Pnbp::class, 'created_by');
     }
 
+    public function bapps(): HasMany
+    {
+        return $this->hasMany(Bapp::class, 'created_by');
+    }
+
     /**
      * Determine if the user has the superadmin role.
      */
