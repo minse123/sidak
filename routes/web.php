@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BappController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PnbpController;
 use App\Http\Controllers\UserController;
@@ -22,4 +23,7 @@ Route::middleware('auth')->group(function (): void {
 
     Route::patch('pnbp/{pnbp}/verify', [PnbpController::class, 'verify'])->name('pnbp.verify');
     Route::resource('pnbp', PnbpController::class);
+
+    Route::patch('bapp/{bapp}/verify', [BappController::class, 'verify'])->name('bapp.verify');
+    Route::resource('bapp', BappController::class);
 });
