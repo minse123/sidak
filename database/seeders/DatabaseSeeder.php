@@ -36,5 +36,8 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $userRole->id,
             ]);
         }
+
+        $this->call(PnbpSeeder::class);
+        $this->call(SuratPesananSeeder::class);
     }
 }
