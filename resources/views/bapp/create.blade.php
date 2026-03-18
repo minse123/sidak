@@ -1,17 +1,26 @@
 @extends('layouts.app')
 
 @section('page-header')
-    <div class="bg-white border-bottom shadow-sm">
-        <div class="container-fluid py-4 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-            <div>
-                <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.35em;">Manajemen BAPP</small>
-                <h2 class="h2 fw-semibold text-dark mt-2 mb-1">Tambah Dokumen BAPP</h2>
-                <p class="text-muted mb-0">Lengkapi informasi pekerjaan dan jadwal pemeriksaan untuk membuat BAPP baru.</p>
+    <div class="container-fluid px-3 px-lg-4 px-xxl-5 py-4">
+        <div class="bg-white border-0 shadow-sm rounded-4">
+            <div
+                class="px-4 px-md-5 py-4 d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4">
+                <div>
+                    <div class="text-success fw-semibold text-uppercase small mb-2" style="letter-spacing: 0.3em;">
+                        Manajemen
+                        BAPP
+                    </div>
+                    <h1 class="h2 fw-bold text-dark mb-2">Tambah Dokumen BAPP</h1>
+                    <p class="text-muted mb-0">
+                        Lengkapi informasi pekerjaan dan jadwal pemeriksaan untuk membuat BAPP baru.
+                    </p>
+                </div>
+
+                <a href="{{ route('bapp.index') }}" class="btn btn-outline-secondary rounded-3 px-4">
+                    <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+                    Kembali ke daftar
+                </a>
             </div>
-            <a href="{{ route('bapp.index') }}" class="btn btn-outline-secondary rounded-3 px-4">
-                <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
-                Kembali ke daftar
-            </a>
         </div>
     </div>
 @endsection
@@ -59,7 +68,8 @@
 
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <label for="selesai_pengerjaan" class="form-label fw-semibold">Tanggal Selesai Pengerjaan</label>
+                                    <label for="selesai_pengerjaan" class="form-label fw-semibold">Tanggal Selesai
+                                        Pengerjaan</label>
                                     <input type="date" id="selesai_pengerjaan" name="selesai_pengerjaan"
                                         value="{{ old('selesai_pengerjaan') }}"
                                         class="form-control @error('selesai_pengerjaan') is-invalid @enderror" required>
@@ -68,7 +78,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="selesai_pemeriksaan" class="form-label fw-semibold">Tanggal Selesai Pemeriksaan</label>
+                                    <label for="selesai_pemeriksaan" class="form-label fw-semibold">Tanggal Selesai
+                                        Pemeriksaan</label>
                                     <input type="date" id="selesai_pemeriksaan" name="selesai_pemeriksaan"
                                         value="{{ old('selesai_pemeriksaan') }}"
                                         class="form-control @error('selesai_pemeriksaan') is-invalid @enderror" required>
@@ -80,7 +91,8 @@
 
                             <div>
                                 <label for="nama_pekerjaan" class="form-label fw-semibold">Nama Pekerjaan</label>
-                                <input type="text" id="nama_pekerjaan" name="nama_pekerjaan" value="{{ old('nama_pekerjaan') }}"
+                                <input type="text" id="nama_pekerjaan" name="nama_pekerjaan"
+                                    value="{{ old('nama_pekerjaan') }}"
                                     class="form-control @error('nama_pekerjaan') is-invalid @enderror"
                                     placeholder="Masukkan nama pekerjaan" required>
                                 @error('nama_pekerjaan')
@@ -119,7 +131,7 @@
                                         <option value="Pending" @selected(old('status', 'Pending') === 'Pending')>Pending</option>
                                         <option value="Verifikasi" @selected(old('status') === 'Verifikasi')>Verifikasi</option>
                                     </select>
-                                    @if (! auth()->user()->isSuperAdmin())
+                                    @if (!auth()->user()->isSuperAdmin())
                                         <input type="hidden" name="status" value="Pending">
                                     @endif
                                     @error('status')

@@ -11,32 +11,186 @@
     $success: vars.$success,
 );
 
-// Custom Styles
-#appMainContent {
-    transition: margin-left 0.3s ease-in-out;
+@media (min-width: 992px) {
+    .offcanvas-backdrop {
+        display: none !important;
+    }
 }
 
-.transition-all {
-    transition: all 0.2s ease-in-out;
+
+.sidebar-modern {
+    background: linear-gradient(180deg, #151b23 0%, #11161d 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02);
 }
 
-.transition-transform {
-    transition: transform 0.2s ease-in-out;
+.sidebar-shell {
+    min-height: 100vh;
 }
 
-.rotate-180 {
+.sidebar-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-logo-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.sidebar-brand {
+    font-size: 1.9rem;
+    line-height: 1;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.sidebar-subtitle {
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.68);
+    white-space: normal;
+    line-height: 1.35;
+}
+
+.sidebar-body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.sidebar-heading {
+    padding: 0 0.875rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.sidebar-link,
+.sidebar-link-toggle {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.74);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.875rem;
+    padding: 0.9rem 0.95rem;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+}
+
+.sidebar-link:hover,
+.sidebar-link-toggle:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-link.active,
+.sidebar-link-toggle.active-parent {
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(25, 135, 84, 0.28), rgba(25, 135, 84, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(25, 135, 84, 0.28);
+}
+
+.sidebar-link-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: inherit;
+}
+
+.sidebar-link.active .sidebar-link-icon,
+.sidebar-link-toggle.active-parent .sidebar-link-icon {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar-link-label {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.sidebar-chevron {
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+    opacity: 0.9;
+}
+
+.sidebar-link-toggle[aria-expanded="true"] .sidebar-chevron {
     transform: rotate(180deg);
 }
 
-.w-20px {
-    width: 20px;
+.sidebar-submenu {
+    margin-left: 1.15rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hover-opacity-100:hover {
-    opacity: 1 !important;
+.sidebar-sublink {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.62);
+    padding: 0.75rem 0.85rem;
+    border-radius: 14px;
+    margin-bottom: 0.25rem;
+    transition: all 0.2s ease;
+    font-size: 0.98rem;
 }
 
-.nav-link {
-    cursor: pointer;
+.sidebar-sublink:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
 }
 
+.sidebar-sublink.active {
+    color: #ffffff;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.sidebar-sublink-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.sidebar-sublink.active .sidebar-sublink-dot {
+    background: #31c48d;
+    box-shadow: 0 0 0 4px rgba(49, 196, 141, 0.12);
+}
+
+@media (max-width: 991.98px) {
+    .sidebar-modern {
+        width: 100%;
+    }
+
+    .sidebar-brand {
+        font-size: 1.6rem;
+    }
+}
