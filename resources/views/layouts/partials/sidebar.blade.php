@@ -24,19 +24,19 @@
 
     $dataNavigation = [
         [
-            'label' => 'Kwitansi',
+            'label' => 'Kwitansi Pembayaran',
             'route' => $resolveRoute('kwitansi.index'),
             'icon' => 'bi bi-cash-stack',
             'active' => request()->routeIs('kwitansi.*'),
         ],
         [
-            'label' => 'Norek Bank Kalsel',
+            'label' => 'Rekening Bank Kalsel',
             'route' => $resolveRoute('norek-bank-kalsel.index'),
             'icon' => 'bi bi-bank',
             'active' => request()->routeIs('norek-bank-kalsel.*'),
         ],
         [
-            'label' => 'Absen',
+            'label' => 'Data Absensi',
             'route' => $resolveRoute('absen.index'),
             'icon' => 'bi bi-person-check',
             'active' => request()->routeIs('absen.*'),
@@ -54,19 +54,19 @@
             'active' => request()->routeIs('laporan-pekerjaan.*'),
         ],
         [
-            'label' => 'BAPP',
+            'label' => 'Berita Acara (BAPP)',
             'route' => $resolveRoute('bapp.index'),
             'icon' => 'bi bi-file-earmark-medical',
             'active' => request()->routeIs('bapp.*'),
         ],
         [
-            'label' => 'Invoice',
+            'label' => 'Faktur / Invoice',
             'route' => $resolveRoute('invoice.index'),
             'icon' => 'bi bi-file-earmark-spreadsheet',
             'active' => request()->routeIs('invoice.*'),
         ],
         [
-            'label' => 'PNBP',
+            'label' => 'Data PNBP',
             'route' => $resolveRoute('pnbp.index'),
             'icon' => 'bi bi-receipt',
             'active' => request()->routeIs('pnbp.*'),
@@ -85,8 +85,8 @@
     $isDataNavigationActive = collect($dataNavigation)->contains(fn(array $item): bool => $item['active']);
 @endphp
 
-<aside id="appSidebar" class="offcanvas offcanvas-start text-bg-dark border-0 d-lg-none" tabindex="-1"
-    aria-labelledby="appSidebarLabel" style="--bs-offcanvas-width: 280px;">
+<aside id="appSidebar" class="offcanvas offcanvas-start border-0 d-lg-none sidebar-modern" tabindex="-1"
+    aria-labelledby="appSidebarLabel" style="--bs-offcanvas-width: 300px;">
     @include('layouts.partials.sidebar-content', [
         'dashboardNavigation' => $dashboardNavigation,
         'dataNavigation' => $dataNavigation,
@@ -97,8 +97,7 @@
     ])
 </aside>
 
-<div class="text-bg-dark border-end border-white border-opacity-10 d-none d-lg-flex flex-column sticky-top vh-100"
-    style="width: 280px; flex: 0 0 280px;">
+<div class="sidebar-modern d-none d-lg-flex flex-column sticky-top vh-100" style="width: 300px; flex: 0 0 300px;">
     @include('layouts.partials.sidebar-content', [
         'dashboardNavigation' => $dashboardNavigation,
         'dataNavigation' => $dataNavigation,
@@ -108,3 +107,4 @@
         'headingId' => 'appSidebarDesktopLabel',
     ])
 </div>
+

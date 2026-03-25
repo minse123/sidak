@@ -1,17 +1,26 @@
 @extends('layouts.app')
 
 @section('page-header')
-    <div class="bg-white border-bottom shadow-sm">
-        <div class="container-fluid py-4 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-            <div>
-                <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.35em;">Manajemen BAPP</small>
-                <h2 class="h2 fw-semibold text-dark mt-2 mb-1">Ubah Dokumen BAPP</h2>
-                <p class="text-muted mb-0">Perbarui informasi pekerjaan, jadwal, dan status verifikasi.</p>
+    <div class="container-fluid px-3 px-lg-4 px-xxl-5 py-4">
+        <div class="bg-white border-0 shadow-sm rounded-4">
+            <div
+                class="px-4 px-md-5 py-4 d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4">
+                <div>
+                    <div class="text-success fw-semibold text-uppercase small mb-2" style="letter-spacing: 0.3em;">
+                        Manajemen
+                        BAPP
+                    </div>
+                    <h1 class="h2 fw-bold text-dark mb-2">Ubah Dokumen BAPP</h1>
+                    <p class="text-muted mb-0">
+                        Perbarui informasi pekerjaan, jadwal, dan status verifikasi.
+                    </p>
+                </div>
+
+                <a href="{{ route('bapp.index') }}" class="btn btn-outline-secondary rounded-3 px-4">
+                    <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+                    Kembali ke daftar
+                </a>
             </div>
-            <a href="{{ route('bapp.index') }}" class="btn btn-outline-secondary rounded-3 px-4">
-                <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
-                Kembali ke daftar
-            </a>
         </div>
     </div>
 @endsection
@@ -57,7 +66,8 @@
 
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <label for="selesai_pengerjaan" class="form-label fw-semibold">Tanggal Selesai Pengerjaan</label>
+                                    <label for="selesai_pengerjaan" class="form-label fw-semibold">Tanggal Selesai
+                                        Pengerjaan</label>
                                     <input type="date" id="selesai_pengerjaan" name="selesai_pengerjaan"
                                         value="{{ old('selesai_pengerjaan', optional($bapp->selesai_pengerjaan)->format('Y-m-d')) }}"
                                         class="form-control @error('selesai_pengerjaan') is-invalid @enderror" required>
@@ -66,7 +76,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="selesai_pemeriksaan" class="form-label fw-semibold">Tanggal Selesai Pemeriksaan</label>
+                                    <label for="selesai_pemeriksaan" class="form-label fw-semibold">Tanggal Selesai
+                                        Pemeriksaan</label>
                                     <input type="date" id="selesai_pemeriksaan" name="selesai_pemeriksaan"
                                         value="{{ old('selesai_pemeriksaan', optional($bapp->selesai_pemeriksaan)->format('Y-m-d')) }}"
                                         class="form-control @error('selesai_pemeriksaan') is-invalid @enderror" required>
@@ -102,8 +113,8 @@
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" id="subtotal" name="subtotal"
                                             value="{{ old('subtotal', $bapp->subtotal) }}"
-                                            class="form-control @error('subtotal') is-invalid @enderror"
-                                            step="0.01" min="0" required>
+                                            class="form-control @error('subtotal') is-invalid @enderror" step="0.01"
+                                            min="0" required>
                                     </div>
                                     @error('subtotal')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -114,12 +125,10 @@
                                     <select id="status" name="status"
                                         class="form-select @error('status') is-invalid @enderror" required
                                         {{ auth()->user()->isSuperAdmin() ? '' : 'disabled' }}>
-                                        <option value="Pending"
-                                            @selected(old('status', $bapp->status) === 'Pending')>Pending</option>
-                                        <option value="Verifikasi"
-                                            @selected(old('status', $bapp->status) === 'Verifikasi')>Verifikasi</option>
+                                        <option value="Pending" @selected(old('status', $bapp->status) === 'Pending')>Pending</option>
+                                        <option value="Verifikasi" @selected(old('status', $bapp->status) === 'Verifikasi')>Verifikasi</option>
                                     </select>
-                                    @if (! auth()->user()->isSuperAdmin())
+                                    @if (!auth()->user()->isSuperAdmin())
                                         <input type="hidden" name="status" value="{{ $bapp->status }}">
                                     @endif
                                     @error('status')

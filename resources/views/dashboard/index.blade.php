@@ -6,23 +6,27 @@
 @endphp
 
 @section('page-header')
-    <div class="bg-white border-bottom shadow-sm">
-        <div class="container-fluid py-4 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-            <div>
-                <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.35em;">{{ now()->format('d F Y') }}</small>
-                <h2 class="h2 fw-semibold text-dark mt-2 mb-1">Selamat datang, {{ Auth::user()->name }}</h2>
-                <p class="text-muted mb-0">Anda masuk sebagai {{ $displayRole }}.</p>
-            </div>
-            <div class="d-flex align-items-center gap-4">
-                <div class="text-end">
-                    <p class="text-uppercase text-muted small mb-0">Status Akun</p>
-                    <p class="h5 fw-semibold text-dark mb-0">Aktif</p>
+    <div class="container-fluid px-3 px-lg-4 px-xxl-5 py-4">
+        <div class="bg-white border-0 shadow-sm rounded-4">
+            <div
+                class="px-4 px-md-5 py-4 d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4">
+                <div>
+                    <small class="text-uppercase text-success fw-semibold"
+                        style="letter-spacing: 0.35em;">{{ now()->format('d F Y') }}</small>
+                    <h2 class="h2 fw-semibold text-dark mt-2 mb-1">Selamat datang, {{ Auth::user()->name }}</h2>
+                    <p class="text-muted mb-0">Anda masuk sebagai {{ $displayRole }}.</p>
                 </div>
-                <div class="d-none d-lg-flex flex-column text-end">
-                    <small class="text-uppercase text-muted">ID User</small>
-                    <span class="fw-semibold">#{{ str_pad(Auth::id(), 4, '0', STR_PAD_LEFT) }}</span>
+                <div class="d-flex align-items-center gap-4">
+                    <div class="text-end">
+                        <p class="text-uppercase text-muted small mb-0">Status Akun</p>
+                        <p class="h5 fw-semibold text-dark mb-0">Aktif</p>
+                    </div>
+                    <div class="d-none d-lg-flex flex-column text-end">
+                        <small class="text-uppercase text-muted">ID User</small>
+                        <span class="fw-semibold">#{{ str_pad(Auth::id(), 4, '0', STR_PAD_LEFT) }}</span>
+                    </div>
+                    <button type="button" class="btn btn-success rounded-pill px-4" disabled>Sinkronisasi Data</button>
                 </div>
-                <button type="button" class="btn btn-success rounded-pill px-4" disabled>Sinkronisasi Data</button>
             </div>
         </div>
     </div>
@@ -79,7 +83,8 @@
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header bg-white border-0 pb-0">
-                        <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.4em;">Aktivitas</small>
+                        <small class="text-uppercase text-success fw-semibold"
+                            style="letter-spacing: 0.4em;">Aktivitas</small>
                         <h3 class="h5 fw-semibold text-dark mt-2">Belum ada catatan aktivitas</h3>
                     </div>
                     <div class="card-body">
@@ -93,7 +98,8 @@
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body d-flex flex-column gap-3">
                         <div>
-                            <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.4em;">Tindakan</small>
+                            <small class="text-uppercase text-success fw-semibold"
+                                style="letter-spacing: 0.4em;">Tindakan</small>
                             <h3 class="h5 fw-semibold text-dark mb-1">{{ $displayRole }}</h3>
                             <p class="text-muted small mb-0">Tidak ada tindakan yang perlu dilakukan.</p>
                         </div>
@@ -112,7 +118,8 @@
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
-                        <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.4em;">Pengingat</small>
+                        <small class="text-uppercase text-success fw-semibold"
+                            style="letter-spacing: 0.4em;">Pengingat</small>
                         <ul class="list-unstyled mt-4 mb-0 text-muted">
                             <li class="mb-3">• Proses bersih-bersih data sedang berlangsung.</li>
                             <li class="mb-3">• Modul akan tersedia kembali setelah verifikasi.</li>
@@ -124,7 +131,8 @@
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
-                        <small class="text-uppercase text-success fw-semibold" style="letter-spacing: 0.4em;">Informasi</small>
+                        <small class="text-uppercase text-success fw-semibold"
+                            style="letter-spacing: 0.4em;">Informasi</small>
                         <p class="text-muted mt-4">Seluruh grafik, log aktivitas, dan statistik sementara dinonaktifkan
                             untuk menjaga konsistensi data. Silakan hubungi admin apabila membutuhkan akses khusus selama
                             proses ini.</p>
